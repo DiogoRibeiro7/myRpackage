@@ -11,17 +11,22 @@ myrpackage/
 ├── DESCRIPTION               # Package metadata
 ├── NAMESPACE                # Generated from roxygen2 docs
 ├── R/
-│   └── hello.R              # Example R function with documentation
+│   ├── hello.R              # Example R function with documentation
+│   └── goodbye.R            # Another example function
 ├── man/
-│   └── hello.Rd             # Generated manual file
+│   ├── hello.Rd             # Generated manual file
+│   └── goodbye.Rd           # Manual for goodbye
 ├── tests/
 │   └── testthat/
-│       └── test-hello.R     # Unit test
+│       ├── test-hello.R     # Unit test
+│       └── test-goodbye.R   # Unit test
 │   └── testthat.R           # Testthat runner setup
 ├── vignettes/
 │   └── intro.Rmd            # Long-form documentation (optional)
 ├── .Rbuildignore            # Files ignored during build
 ├── .gitignore               # Git ignore rules
+├── inst/
+│   └── CITATION            # Citation information
 ├── LICENSE                  # Open-source license (MIT recommended)
 └── README.md                # Project overview and usage
 ```
@@ -59,9 +64,22 @@ hello <- function() {
   print("Hello, world!")
 }
 ```
-
 ---
 
+## 📄 R/goodbye.R
+
+```r
+#' Say Goodbye
+#'
+#' This function prints a friendly farewell.
+#'
+#' @return No return value, called for side effects.
+#' @export
+goodbye <- function() {
+  print("Goodbye, world!")
+}
+```
+---
 ## 🧪 tests/testthat/test-hello.R
 
 ```r
@@ -102,10 +120,16 @@ test_check("myrpackage")
 ```
 MIT License
 
-Copyright (c) 2025 Your Name
+Copyright (c) 2025 Diogo Ribeiro
 
 Permission is hereby granted, free of charge, to any person obtaining a copy...
 ```
+---
+
+## 📑 Citation
+
+To cite this package, run `citation("myrpackage")` in R. This will display the bibliographic information from `inst/CITATION`.
+
 
 ---
 
@@ -115,54 +139,3 @@ Permission is hereby granted, free of charge, to any person obtaining a copy...
 ---
 title: "Getting Started with myrpackage"
 output: rmarkdown::html_vignette
-vignette: >
-  %\VignetteIndexEntry{Getting Started}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
----
-
-```{r setup, include = FALSE}
-library(myrpackage)
-````
-
-This is an introduction to using the package.
-
-````
-
----
-
-## 🚀 Development Workflow
-
-1. **Set up the package in RStudio or manually**:
-   ```r
-   usethis::create_package("myrpackage")
-   usethis::use_git()
-   usethis::use_mit_license()
-   usethis::use_roxygen_md()
-   usethis::use_testthat()
-   devtools::document()
-````
-
-2. **Check your package**:
-
-   ```r
-   devtools::check()
-   ```
-
-3. **Install locally**:
-
-   ```r
-   devtools::install()
-   ```
-
-4. **Submit to CRAN**:
-
-   ```r
-   devtools::release()
-   ```
-
----
-
-## ✅ Summary
-
-This scaffold provides everything needed to start building an R package with good development hygiene, testing, documentation, and CRAN readiness.

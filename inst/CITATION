@@ -1,0 +1,16 @@
+citHeader("To cite myrpackage in publications use:")
+
+bibentry(
+  "Manual",
+  title = "myrpackage: A Minimal R Package",
+  author = person(given = "Diogo", family = "Ribeiro",
+                  email = "dfr@esmad.ipp.pt",
+                  role = c("aut", "cre"),
+                  comment = c(ORCID = "0009-0001-2022-7072",
+                              affiliation = "ESMAD - Instituto Politécnico do Porto")),
+  year = format(Sys.Date(), "%Y"),
+  note = "R package version 0.0.0.9000",
+  url = "https://github.com/DiogoRibeiro7/myrpackage"
+)
+
+citFooter("Please cite this package when using it.")

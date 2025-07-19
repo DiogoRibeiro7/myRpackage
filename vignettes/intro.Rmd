@@ -1,0 +1,14 @@
+---
+title: "Getting Started with myrpackage"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Getting Started}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+library(myrpackage)
+```
+
+This is an introduction to using the package.

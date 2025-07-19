@@ -1,0 +1,11 @@
+Package: myrpackage
+Type: Package
+Title: A Minimal R Package
+Version: 0.0.0.9000
+Authors@R:
+    person(given = "Diogo", family = "Ribeiro", email = "dfr@esmad.ipp.pt", role = c("aut", "cre"), comment = c(ORCID = "0009-0001-2022-7072", affiliation = "ESMAD - Instituto Politécnico do Porto"))
+Description: A short description of what the package does.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.3.0
