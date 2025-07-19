@@ -1,0 +1,7 @@
+^README\.md$
+^\.gitignore$
+^\.Rproj\.user$
+^\.Rhistory$
+^\.RData$
+^\.DS_Store$
+^vignettes/
