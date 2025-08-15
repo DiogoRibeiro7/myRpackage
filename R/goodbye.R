@@ -23,15 +23,15 @@ goodbye <- function(name = "world", language = "english", exclamation = TRUE) {
   if (!is.character(name) || length(name) != 1) {
     stop("'name' must be a single character string")
   }
-  
+
   if (!is.character(language) || length(language) != 1) {
     stop("'language' must be a single character string")
   }
-  
+
   if (!is.logical(exclamation) || length(exclamation) != 1) {
     stop("'exclamation' must be a single logical value")
   }
-  
+
   # Select farewell based on language
   farewell <- switch(
     tolower(language),
@@ -42,20 +42,20 @@ goodbye <- function(name = "world", language = "english", exclamation = TRUE) {
     # Default to English if language not supported
     "Goodbye"
   )
-  
+
   # Construct the farewell
   result <- paste0(farewell, ", ", name)
-  
+
   # Add exclamation mark if requested
   if (exclamation) {
     result <- paste0(result, "!")
   } else {
     result <- paste0(result, ".")
   }
-  
+
   # Print the farewell and return it invisibly
   cat(result, "\n")
-  
+
   # Return the farewell
   invisible(result)
 }
