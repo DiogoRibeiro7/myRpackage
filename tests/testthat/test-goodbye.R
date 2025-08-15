@@ -3,7 +3,7 @@ test_that("goodbye() prints correctly with default arguments", {
   expect_output(goodbye(), "Goodbye, world!")
 
   # Test that the invisible return value is correct
-  expect_equal(suppressMessages(goodbye()), "Goodbye, world!")
+  expect_equal(capture.output(goodbye()), "Goodbye, world!")
 })
 
 test_that("goodbye() accepts custom name parameter", {
