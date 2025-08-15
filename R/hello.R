@@ -23,39 +23,39 @@ hello <- function(name = "world", language = "english", exclamation = TRUE) {
   if (!is.character(name) || length(name) != 1) {
     stop("'name' must be a single character string")
   }
-
+  
   if (!is.character(language) || length(language) != 1) {
     stop("'language' must be a single character string")
   }
-
+  
   if (!is.logical(exclamation) || length(exclamation) != 1) {
     stop("'exclamation' must be a single logical value")
   }
-
+  
   # Select greeting based on language
   greeting <- switch(
     tolower(language),
     english = "Hello",
     spanish = "Hola",
     french = "Bonjour",
-    portuguese = "Olá",
+    portuguese = "Ol\u00e1", # Using Unicode escape for 'á'
     # Default to English if language not supported
     "Hello"
   )
-
+  
   # Construct the greeting
   result <- paste0(greeting, ", ", name)
-
+  
   # Add exclamation mark if requested
   if (exclamation) {
     result <- paste0(result, "!")
   } else {
     result <- paste0(result, ".")
   }
-
+  
   # Print the greeting and return it invisibly
   cat(result, "\n")
-
+  
   # Return the greeting
   invisible(result)
 }

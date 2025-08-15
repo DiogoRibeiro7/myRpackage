@@ -10,7 +10,7 @@ Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.0
-Suggests:
+Suggests: 
     covr,
     knitr,
     lintr,
@@ -24,7 +24,5 @@ Config/testthat/edition: 3
 VignetteBuilder: knitr
 URL: https://github.com/DiogoRibeiro7/myrpackage, https://diogoribeiro7.github.io/myrpackage/
 BugReports: https://github.com/DiogoRibeiro7/myrpackage/issues
-Imports:
-    lifecycle
-Depends:
+Depends: 
     R (>= 3.5)
