@@ -1,59 +1,59 @@
-test_that("hello() prints correctly with default arguments", {
+test_that("goodbye() prints correctly with default arguments", {
   # Test the default output
-  expect_output(hello(), "Hello, world!")
-  
+  expect_output(goodbye(), "Goodbye, world!")
+
   # Test that the invisible return value is correct
-  expect_equal(suppressMessages(hello()), "Hello, world!")
+  expect_equal(suppressMessages(goodbye()), "Goodbye, world!")
 })
 
-test_that("hello() accepts custom name parameter", {
+test_that("goodbye() accepts custom name parameter", {
   # Test with a custom name
-  expect_output(hello("R Users"), "Hello, R Users!")
+  expect_output(goodbye("R Users"), "Goodbye, R Users!")
 })
 
-test_that("hello() supports different languages", {
+test_that("goodbye() supports different languages", {
   # Test English (default)
-  expect_output(hello(language = "english"), "Hello, world!")
-  
+  expect_output(goodbye(language = "english"), "Goodbye, world!")
+
   # Test Spanish
-  expect_output(hello(language = "spanish"), "Hola, world!")
-  
+  expect_output(goodbye(language = "spanish"), "Adiós, world!")
+
   # Test French
-  expect_output(hello(language = "french"), "Bonjour, world!")
-  
+  expect_output(goodbye(language = "french"), "Au revoir, world!")
+
   # Test Portuguese
-  expect_output(hello(language = "portuguese"), "Olá, world!")
-  
+  expect_output(goodbye(language = "portuguese"), "Adeus, world!")
+
   # Test unknown language (should default to English)
-  expect_output(hello(language = "german"), "Hello, world!")
+  expect_output(goodbye(language = "german"), "Goodbye, world!")
 })
 
-test_that("hello() correctly handles exclamation parameter", {
+test_that("goodbye() correctly handles exclamation parameter", {
   # Test with exclamation = TRUE (default)
-  expect_output(hello(exclamation = TRUE), "Hello, world!")
-  
+  expect_output(goodbye(exclamation = TRUE), "Goodbye, world!")
+
   # Test with exclamation = FALSE
-  expect_output(hello(exclamation = FALSE), "Hello, world.")
+  expect_output(goodbye(exclamation = FALSE), "Goodbye, world.")
 })
 
-test_that("hello() validates input parameters", {
+test_that("goodbye() validates input parameters", {
   # Test invalid name parameter
-  expect_error(hello(name = c("world", "everyone")), "'name' must be a single character string")
-  expect_error(hello(name = 123), "'name' must be a single character string")
-  
+  expect_error(goodbye(name = c("world", "everyone")), "'name' must be a single character string")
+  expect_error(goodbye(name = 123), "'name' must be a single character string")
+
   # Test invalid language parameter
-  expect_error(hello(language = c("english", "spanish")), "'language' must be a single character string")
-  expect_error(hello(language = 123), "'language' must be a single character string")
-  
+  expect_error(goodbye(language = c("english", "spanish")), "'language' must be a single character string")
+  expect_error(goodbye(language = 123), "'language' must be a single character string")
+
   # Test invalid exclamation parameter
-  expect_error(hello(exclamation = c(TRUE, FALSE)), "'exclamation' must be a single logical value")
-  expect_error(hello(exclamation = "yes"), "'exclamation' must be a single logical value")
+  expect_error(goodbye(exclamation = c(TRUE, FALSE)), "'exclamation' must be a single logical value")
+  expect_error(goodbye(exclamation = "yes"), "'exclamation' must be a single logical value")
 })
 
-test_that("hello() works with all combinations of parameters", {
+test_that("goodbye() works with all combinations of parameters", {
   # Test with all parameters customized
   expect_output(
-    hello(name = "friends", language = "spanish", exclamation = FALSE),
-    "Hola, friends."
+    goodbye(name = "friends", language = "spanish", exclamation = FALSE),
+    "Adiós, friends."
   )
 })
