@@ -1,141 +1,145 @@
 # myrpackage
 
-A starter R package scaffold, structured for publication on [CRAN](https://cran.r-project.org/), with boilerplate files and metadata to begin development immediately.
+<!-- badges: start -->
+[![R-CMD-check](https://github.com/DiogoRibeiro7/myrpackage/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/DiogoRibeiro7/myrpackage/actions/workflows/R-CMD-check.yaml)
+[![Codecov test coverage](https://codecov.io/gh/DiogoRibeiro7/myrpackage/branch/main/graph/badge.svg)](https://codecov.io/gh/DiogoRibeiro7/myrpackage?branch=main)
+[![CRAN status](https://www.r-pkg.org/badges/version/myrpackage)](https://CRAN.R-project.org/package=myrpackage)
+[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+<!-- badges: end -->
 
----
+A minimal R package scaffold, structured for publication on [CRAN](https://cran.r-project.org/), with boilerplate files and metadata to begin development immediately.
 
-## 📁 File Tree
+## Installation
 
-```text
-myrpackage/
-├── DESCRIPTION               # Package metadata
-├── NAMESPACE                # Generated from roxygen2 docs
-├── R/
-│   ├── hello.R              # Example R function with documentation
-│   └── goodbye.R            # Another example function
-├── man/
-│   ├── hello.Rd             # Generated manual file
-│   └── goodbye.Rd           # Manual for goodbye
-├── tests/
-│   └── testthat/
-│       ├── test-hello.R     # Unit test
-│       └── test-goodbye.R   # Unit test
-│   └── testthat.R           # Testthat runner setup
-├── vignettes/
-│   └── intro.Rmd            # Long-form documentation (optional)
-├── .Rbuildignore            # Files ignored during build
-├── .gitignore               # Git ignore rules
-├── inst/
-│   └── CITATION            # Citation information
-├── LICENSE                  # Open-source license (MIT recommended)
-└── README.md                # Project overview and usage
-```
-
----
-
-## 📦 DESCRIPTION (Example)
+You can install the development version of myrpackage from [GitHub](https://github.com/) with:
 
 ```r
-Package: myrpackage
-Type: Package
-Title: What the Package Does (One Line, Title Case)
-Version: 0.0.0.9000
-Authors@R:
-    person(given = "First", family = "Last", email = "your@email.com", role = c("aut", "cre"))
-Description: A short description of what the package does.
-License: MIT + file LICENSE
-Encoding: UTF-8
-LazyData: true
-RoxygenNote: 7.3.0
+# install.packages("devtools")
+devtools::install_github("DiogoRibeiro7/myrpackage")
 ```
 
----
+## Usage
 
-## 📄 R/hello.R
-
-```r
-#' Say Hello
-#'
-#' This function prints a friendly greeting.
-#'
-#' @return No return value, called for side effects.
-#' @export
-hello <- function() {
-  print("Hello, world!")
-}
-```
----
-
-## 📄 R/goodbye.R
+### Basic Examples
 
 ```r
-#' Say Goodbye
-#'
-#' This function prints a friendly farewell.
-#'
-#' @return No return value, called for side effects.
-#' @export
-goodbye <- function() {
-  print("Goodbye, world!")
-}
-```
----
-## 🧪 tests/testthat/test-hello.R
-
-```r
-test_that("hello() prints correctly", {
-  expect_output(hello(), "Hello, world!")
-})
-```
-
----
-
-## 📄 tests/testthat.R
-
-```r
-library(testthat)
 library(myrpackage)
 
-test_check("myrpackage")
+# Say hello with default parameters
+hello()
+#> Hello, world!
+
+# Say hello to someone specific
+hello("R Users")
+#> Hello, R Users!
+
+# Say hello in different languages
+hello("amigos", language = "spanish")
+#> Hola, amigos!
+
+hello("mes amis", language = "french")
+#> Bonjour, mes amis!
+
+# Say goodbye
+goodbye()
+#> Goodbye, world!
+
+goodbye("friends", language = "portuguese")
+#> Adeus, friends!
 ```
 
----
+## Features
 
-## 📄 .Rbuildignore
+- 🌐 Multilingual greeting and farewell functions
+- 📦 Proper R package structure
+- 📄 Comprehensive documentation
+- 🧪 Complete test coverage
+- 🔄 Continuous Integration workflow
 
-```text
-^README\.md$
-^\.gitignore$
-^\.Rproj\.user$
-^\.Rhistory$
-^\.RData$
-^\.DS_Store$
-^vignettes/
-```
-
----
-
-## 📄 LICENSE (MIT Example)
+## Package Structure
 
 ```
-MIT License
-
-Copyright (c) 2025 Diogo Ribeiro
-
-Permission is hereby granted, free of charge, to any person obtaining a copy...
+myrpackage/
+├── DESCRIPTION          # Package metadata
+├── NAMESPACE           # Exported functions
+├── R/                  # R source code
+│   ├── hello.R         # Hello function
+│   ├── goodbye.R       # Goodbye function
+│   ├── lifecycle.R     # Lifecycle definitions
+│   └── myrpackage-package.R  # Package documentation
+├── man/                # Documentation
+├── tests/              # Tests
+│   └── testthat/       # Unit tests
+├── vignettes/          # Long-form documentation
+│   └── intro.Rmd       # Introduction vignette
+├── .Rbuildignore       # Build exclusions
+├── .github/            # GitHub configuration
+│   └── workflows/      # CI/CD workflows
+├── inst/               # Installed files
+│   └── CITATION        # Citation information
+└── LICENSE             # MIT license
 ```
----
 
-## 📑 Citation
+## Development
 
-To cite this package, run `citation("myrpackage")` in R. This will display the bibliographic information from `inst/CITATION`.
+### Getting Started
 
+1. Clone the repository
+2. Open the project in RStudio or your preferred R environment
+3. Install development dependencies with `devtools::install_dev_deps()`
 
----
+### Running Tests
 
-## 📄 vignettes/intro.Rmd (Optional)
+```r
+# Run tests
+devtools::test()
 
-````rmd
----
-title: "Getting Started with myrpackage"
-output: rmarkdown::html_vignette
+# Check test coverage
+covr::package_coverage()
+```
+
+### Building Documentation
+
+```r
+# Generate documentation
+devtools::document()
+
+# Build vignettes
+devtools::build_vignettes()
+
+# Preview package website
+pkgdown::build_site()
+```
+
+### Quality Checks
+
+```r
+# Run R CMD check
+devtools::check()
+
+# Check package with more stringent CRAN checks
+rcmdcheck::rcmdcheck(args = c("--no-manual", "--as-cran"))
+
+# Lint code
+lintr::lint_package()
+
+# Style code
+styler::style_pkg()
+```
+
+## Contributing
+
+Contributions are welcome! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for details.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Citation
+
+To cite this package, please use:
+
+```r
+citation("myrpackage")
+```

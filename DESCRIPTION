@@ -8,4 +8,23 @@ Description: A short description of what the package does.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
+Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.0
+Suggests: 
+    covr,
+    knitr,
+    lintr,
+    pkgdown,
+    rmarkdown,
+    styler,
+    testthat (>= 3.0.0),
+    usethis,
+    withr
+Config/testthat/edition: 3
+VignetteBuilder: knitr
+URL: https://github.com/DiogoRibeiro7/myrpackage, https://diogoribeiro7.github.io/myrpackage/
+BugReports: https://github.com/DiogoRibeiro7/myrpackage/issues
+Imports: 
+    lifecycle
+Depends: 
+    R (>= 3.5)

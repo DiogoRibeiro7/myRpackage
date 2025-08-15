@@ -1,14 +1,114 @@
 ---
 title: "Getting Started with myrpackage"
+author: "Diogo Ribeiro"
+date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Getting Started}
+  %\VignetteIndexEntry{Getting Started with myrpackage}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r setup, include = FALSE}
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
 library(myrpackage)
 ```
 
-This is an introduction to using the package.
+## Introduction
+
+The `myrpackage` package provides simple greeting functions that demonstrate proper R package structure and documentation. This vignette introduces the main functionality of the package and shows examples of how to use it.
+
+## Basic Usage
+
+The package contains two main functions:
+
+- `hello()`: Say hello in various languages
+- `goodbye()`: Say goodbye in various languages
+
+### Saying Hello
+
+The `hello()` function generates a friendly greeting. By default, it says "Hello, world!":
+
+```{r}
+hello()
+```
+
+You can customize the greeting with a different name:
+
+```{r}
+hello("R Users")
+```
+
+### Multilingual Greetings
+
+Both functions support multiple languages. Currently supported languages are:
+
+- English (default)
+- Spanish
+- French
+- Portuguese
+
+Here are examples of greetings in different languages:
+
+```{r}
+hello("amigos", language = "spanish")
+hello("mes amis", language = "french")
+hello("amigos", language = "portuguese")
+```
+
+### Customizing Punctuation
+
+You can also control whether the greeting ends with an exclamation mark:
+
+```{r}
+hello(exclamation = TRUE)  # Default
+hello(exclamation = FALSE)
+```
+
+### Saying Goodbye
+
+The `goodbye()` function works similarly to `hello()`, but provides farewell messages:
+
+```{r}
+goodbye()
+goodbye("R Users")
+goodbye("amigos", language = "spanish")
+goodbye("mes amis", language = "french", exclamation = FALSE)
+```
+
+## Advanced Usage
+
+Both functions perform input validation to ensure proper usage:
+
+```{r, error=TRUE}
+# These will generate errors:
+hello(name = c("world", "everyone"))
+hello(language = 123)
+hello(exclamation = "yes")
+```
+
+## Further Reading
+
+For complete details about function arguments and behavior, refer to the function documentation:
+
+```{r, eval=FALSE}
+?hello
+?goodbye
+```
+
+## Conclusion
+
+`myrpackage` is a simple demonstration package that showcases proper R package development practices. It includes:
+
+- Well-documented functions
+- Comprehensive tests
+- Properly structured package components
+- Vignettes for user documentation
+
+While the functionality is minimal, the package structure follows best practices for R package development.

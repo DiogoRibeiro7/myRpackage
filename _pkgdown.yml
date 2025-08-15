@@ -1,0 +1,65 @@
+url: https://diogoribeiro7.github.io/myrpackage/
+
+template:
+  bootstrap: 5
+  bootswatch: cosmo
+  bslib:
+    primary: "#0054AD"
+    navbar-light-brand-color: "#0054AD"
+    navbar-light-brand-hover-color: "#0054AD"
+    navbar-light-active-color: "#0054AD"
+    navbar-light-hover-color: "#0054AD"
+    navbar-light-color: "#0054AD"
+
+development:
+  mode: auto
+
+authors:
+  Diogo Ribeiro:
+    href: "https://github.com/DiogoRibeiro7"
+
+navbar:
+  structure:
+    left: [intro, reference, articles, news, tutorials]
+    right: [search, github]
+  components:
+    articles:
+      text: Articles
+      menu:
+      - text: Getting Started
+        href: articles/intro.html
+    reference:
+      text: Reference
+      href: reference/index.html
+    github:
+      icon: fab fa-github fa-lg
+      href: https://github.com/DiogoRibeiro7/myrpackage
+    news:
+      text: News
+      href: news/index.html
+
+reference:
+  - title: "Main Functions"
+    desc: >
+      The core greeting functions of the package
+    contents:
+      - hello
+      - goodbye
+  - title: "Package Information"
+    desc: "Documentation about the package itself"
+    contents:
+      - myrpackage-package
+      - myrpackage-lifecycle
+
+home:
+  sidebar:
+    structure: [links, license, community, citation, authors, dev]
+    components:
+      citation:
+        title: Citation
+        text: If you use this package, please cite it.
+      community:
+        title: Community
+        text: >
+          If you have questions or issues about the package, please file an issue on 
+          [GitHub](https://github.com/DiogoRibeiro7/myrpackage/issues).

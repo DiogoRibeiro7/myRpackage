@@ -1,16 +1,26 @@
 citHeader("To cite myrpackage in publications use:")
 
+year <- format(Sys.Date(), "%Y")
+version <- meta$Version
+
 bibentry(
-  "Manual",
+  bibtype = "Manual",
   title = "myrpackage: A Minimal R Package",
   author = person(given = "Diogo", family = "Ribeiro",
                   email = "dfr@esmad.ipp.pt",
                   role = c("aut", "cre"),
                   comment = c(ORCID = "0009-0001-2022-7072",
                               affiliation = "ESMAD - Instituto Politécnico do Porto")),
-  year = format(Sys.Date(), "%Y"),
-  note = "R package version 0.0.0.9000",
-  url = "https://github.com/DiogoRibeiro7/myrpackage"
+  year = year,
+  note = paste("R package version", version),
+  url = "https://github.com/DiogoRibeiro7/myrpackage",
+  doi = "", # Add DOI when available
+  textVersion = paste0(
+    "Ribeiro, D. (", year, "). ",
+    "myrpackage: A Minimal R Package. ",
+    "R package version ", version, ". ",
+    "https://github.com/DiogoRibeiro7/myrpackage"
+  )
 )
 
-citFooter("Please cite this package when using it.")
+citFooter("Please cite this package when using it for data analysis or research.")
