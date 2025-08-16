@@ -51,8 +51,8 @@ reference:
   - title: "Package Information"
     desc: "Documentation about the package itself"
     contents:
-      - "myrpackage-package"
-      - "myrpackage-lifecycle"
+      - matches("myrpackage-package")
+      - matches("myrpackage-lifecycle")
 
 home:
   sidebar:
