@@ -7,7 +7,7 @@
 #' @param language Character string. The language for the farewell.
 #'        Supported languages: "english" (default), "spanish", "french", "portuguese", "german", "italian".
 #' @param exclamation Logical. Whether to add an exclamation mark. Default is TRUE.
-#' @param capitalize Logical. Whether to capitalize the name. Default is FALSE.
+#' @param capitalize Logical. Whether to capitalize the first letter of the name. Default is FALSE.
 #'
 #' @return A character string containing the farewell message.
 #' @export
