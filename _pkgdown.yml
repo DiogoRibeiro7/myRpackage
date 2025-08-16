@@ -28,11 +28,14 @@ navbar:
       menu:
       - text: Getting Started
         href: articles/intro.html
+      - text: Advanced Usage
+        href: articles/advanced.html
     reference:
       text: Reference
       href: reference/index.html
     github:
       icon: fab fa-github fa-lg
+      aria-label: GitHub
       href: https://github.com/DiogoRibeiro7/myrpackage
     news:
       text: News
@@ -48,8 +51,8 @@ reference:
   - title: "Package Information"
     desc: "Documentation about the package itself"
     contents:
-      - "myrpackage-package"  # Use quotes to ensure it's treated as a literal string
-      - myrpackage-lifecycle
+      - "myrpackage-package"
+      - "myrpackage-lifecycle"
 
 home:
   sidebar:

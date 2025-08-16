@@ -53,6 +53,8 @@ Both functions support multiple languages. Currently supported languages are:
 - Spanish
 - French
 - Portuguese
+- German
+- Italian
 
 Here are examples of greetings in different languages:
 
@@ -60,6 +62,8 @@ Here are examples of greetings in different languages:
 hello("amigos", language = "spanish")
 hello("mes amis", language = "french")
 hello("amigos", language = "portuguese")
+hello("freunde", language = "german")
+hello("amici", language = "italian")
 ```
 
 ### Customizing Punctuation
@@ -69,6 +73,14 @@ You can also control whether the greeting ends with an exclamation mark:
 ```{r}
 hello(exclamation = TRUE)  # Default
 hello(exclamation = FALSE)
+```
+
+### Capitalizing Names
+
+You can capitalize the first letter of the name:
+
+```{r}
+hello("r users", capitalize = TRUE)
 ```
 
 ### Saying Goodbye
@@ -82,15 +94,23 @@ goodbye("amigos", language = "spanish")
 goodbye("mes amis", language = "french", exclamation = FALSE)
 ```
 
-## Advanced Usage
+## Error Handling
 
-Both functions perform input validation to ensure proper usage:
+Both functions include input validation and helpful error messages:
 
 ```{r, error=TRUE}
 # These will generate errors:
 hello(name = c("world", "everyone"))
-hello(language = 123)
+```
+
+```{r, error=TRUE}
 hello(exclamation = "yes")
+```
+
+The functions also provide helpful warnings when unsupported languages are requested:
+
+```{r, warning=TRUE}
+hello("world", language = "klingon")
 ```
 
 ## Further Reading
@@ -102,6 +122,12 @@ For complete details about function arguments and behavior, refer to the functio
 ?goodbye
 ```
 
+For more advanced usage patterns, see the "Advanced Usage" vignette:
+
+```{r, eval=FALSE}
+vignette("advanced", package = "myrpackage")
+```
+
 ## Conclusion
 
 `myrpackage` is a simple demonstration package that showcases proper R package development practices. It includes:
@@ -110,5 +136,6 @@ For complete details about function arguments and behavior, refer to the functio
 - Comprehensive tests
 - Properly structured package components
 - Vignettes for user documentation
+- Input validation and error handling
 
 While the functionality is minimal, the package structure follows best practices for R package development.

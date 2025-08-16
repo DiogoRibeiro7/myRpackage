@@ -6,9 +6,11 @@ coverage:
       default:
         target: auto
         threshold: 1%
-        informational: true
+        # Changed from informational to true to make codecov status checks required
+        informational: false
     patch:
       default:
         target: auto
         threshold: 1%
-        informational: true
+        # Changed from informational to true to make codecov status checks required
+        informational: false

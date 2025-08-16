@@ -24,8 +24,15 @@ test_that("goodbye() supports different languages", {
   # Test Portuguese
   expect_output(goodbye(language = "portuguese"), "Adeus, world!")
 
-  # Test unknown language (should default to English)
-  expect_output(goodbye(language = "german"), "Goodbye, world!")
+  # Test German
+  expect_output(goodbye(language = "german"), "Auf Wiedersehen, world!")
+
+  # Test Italian
+  expect_output(goodbye(language = "italian"), "Arrivederci, world!")
+
+  # Test unknown language (should default to English with warning)
+  expect_warning(goodbye(language = "german2"), "Language 'german2' not supported")
+  expect_output(suppressWarnings(goodbye(language = "german2")), "Goodbye, world!")
 })
 
 test_that("goodbye() correctly handles exclamation parameter", {
@@ -34,6 +41,14 @@ test_that("goodbye() correctly handles exclamation parameter", {
 
   # Test with exclamation = FALSE
   expect_output(goodbye(exclamation = FALSE), "Goodbye, world.")
+})
+
+test_that("goodbye() correctly handles capitalize parameter", {
+  # Test with capitalize = FALSE (default)
+  expect_output(goodbye("world", capitalize = FALSE), "Goodbye, world!")
+
+  # Test with capitalize = TRUE
+  expect_output(goodbye("world", capitalize = TRUE), "Goodbye, World!")
 })
 
 test_that("goodbye() validates input parameters", {
@@ -48,12 +63,16 @@ test_that("goodbye() validates input parameters", {
   # Test invalid exclamation parameter
   expect_error(goodbye(exclamation = c(TRUE, FALSE)), "'exclamation' must be a single logical value")
   expect_error(goodbye(exclamation = "yes"), "'exclamation' must be a single logical value")
+
+  # Test invalid capitalize parameter
+  expect_error(goodbye(capitalize = c(TRUE, FALSE)), "'capitalize' must be a single logical value")
+  expect_error(goodbye(capitalize = "yes"), "'capitalize' must be a single logical value")
 })
 
 test_that("goodbye() works with all combinations of parameters", {
   # Test with all parameters customized
   expect_output(
-    goodbye(name = "friends", language = "spanish", exclamation = FALSE),
-    "Adiós, friends."
+    goodbye(name = "friends", language = "spanish", exclamation = FALSE, capitalize = TRUE),
+    "Adiós, Friends."
   )
 })

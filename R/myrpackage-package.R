@@ -1,17 +1,27 @@
 #' @keywords internal
 "_PACKAGE"
 
-#' myrpackage: A Minimal R Package
+#' myrpackage: A Multilingual Greeting Package
 #'
 #' @description
-#' A minimal R package that provides greeting functions.
-#' This package is designed to demonstrate proper R package structure
-#' and documentation practices.
+#' A friendly R package that provides greeting and farewell functions in multiple languages.
+#' This package demonstrates proper R package structure, documentation, and test practices.
+#' It is designed to be a simple but complete example of R package development.
 #'
 #' @section Main functions:
 #' \itemize{
 #'   \item \code{\link{hello}} - Say hello in various languages
 #'   \item \code{\link{goodbye}} - Say goodbye in various languages
+#' }
+#'
+#' @section Supported languages:
+#' \itemize{
+#'   \item English (default)
+#'   \item Spanish
+#'   \item French
+#'   \item Portuguese
+#'   \item German
+#'   \item Italian
 #' }
 #'
 #' @docType package

@@ -5,7 +5,7 @@ linters: linters_with_defaults(
   )
 exclusions: list(
     "inst/",
-    "man/",
-    "vignettes/"
+    "man/"
+    # Removed "vignettes/" to enforce linting on vignettes
   )
 encoding: "UTF-8"

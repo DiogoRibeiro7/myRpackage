@@ -1,0 +1,247 @@
+---
+title: "Advanced Usage of myrpackage"
+author: "Diogo Ribeiro"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Advanced Usage of myrpackage}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(myrpackage)
+```
+
+## Advanced Usage Patterns
+
+This vignette covers more advanced usage patterns for the `myrpackage` functions.
+
+### Creating Custom Greeting Functions
+
+You can create custom greeting functions based on `hello()` and `goodbye()` to maintain consistent greetings throughout your application:
+
+```{r}
+# Create a custom Spanish greeter
+spanish_hello <- function(name = "amigos", exclamation = TRUE, capitalize = FALSE) {
+  hello(name = name, language = "spanish", exclamation = exclamation, capitalize = capitalize)
+}
+
+# Try it out
+spanish_hello("todos")
+spanish_hello("R usuarios", capitalize = TRUE)
+```
+
+### Working with Multiple Languages
+
+If your application needs to support multiple languages, you can create a wrapper function:
+
+```{r}
+multilingual_greeting <- function(name, languages = c("english", "spanish", "french")) {
+  for (lang in languages) {
+    hello(name = name, language = lang)
+  }
+}
+
+# Greet in multiple languages
+multilingual_greeting("R users", c("english", "french", "german"))
+```
+
+### Creating Personalized Messages
+
+You can combine the greeting functions with other text to create more personalized messages:
+
+```{r}
+create_welcome_message <- function(name, language = "english") {
+  greeting <- suppressMessages(hello(name, language, exclamation = TRUE))
+  
+  # Add a personalized message
+  additional_text <- switch(
+    language,
+    english = "Welcome to our application.",
+    spanish = "Bienvenido a nuestra aplicación.",
+    french = "Bienvenue dans notre application.",
+    portuguese = "Bem-vindo ao nosso aplicativo.",
+    german = "Willkommen in unserer Anwendung.",
+    italian = "Benvenuto nella nostra applicazione.",
+    "Welcome to our application."
+  )
+  
+  message <- paste(greeting, additional_text)
+  cat(message, "\n")
+  
+  invisible(message)
+}
+
+# Create a welcome message
+create_welcome_message("John", "english")
+create_welcome_message("Maria", "spanish")
+```
+
+### Error Handling
+
+When working with user input, it's good practice to handle potential errors:
+
+```{r, error=TRUE}
+safe_hello <- function(name, language) {
+  tryCatch(
+    {
+      hello(name, language)
+    },
+    error = function(e) {
+      cat("Error in greeting:", conditionMessage(e), "\n")
+      cat("Using default greeting instead.\n")
+      hello()
+    },
+    warning = function(w) {
+      cat("Warning:", conditionMessage(w), "\n")
+      # Continue execution with the warning
+      suppressWarnings(hello(name, language))
+    }
+  )
+}
+
+# Test with valid inputs
+safe_hello("R users", "english")
+
+# Test with an invalid language (produces a warning)
+safe_hello("R users", "klingon")
+
+# Test with an invalid name (produces an error)
+safe_hello(c("multiple", "names"), "english")
+```
+
+### Integration with Other Packages
+
+You can easily integrate `myrpackage` functions with other packages, such as creating a shiny app:
+
+```r
+# This is an example, not run
+library(shiny)
+
+ui <- fluidPage(
+  titlePanel("Multilingual Greeter"),
+  
+  sidebarLayout(
+    sidebarPanel(
+      textInput("name", "Your Name:", "world"),
+      selectInput("language", "Language:",
+                  choices = c("English" = "english",
+                             "Spanish" = "spanish",
+                             "French" = "french",
+                             "Portuguese" = "portuguese",
+                             "German" = "german",
+                             "Italian" = "italian")),
+      checkboxInput("exclamation", "Add Exclamation Mark", TRUE),
+      checkboxInput("capitalize", "Capitalize Name", FALSE)
+    ),
+    
+    mainPanel(
+      h3("Greeting:"),
+      verbatimTextOutput("greeting"),
+      h3("Farewell:"),
+      verbatimTextOutput("farewell")
+    )
+  )
+)
+
+server <- function(input, output) {
+  output$greeting <- renderText({
+    suppressMessages(
+      hello(input$name, input$language, input$exclamation, input$capitalize)
+    )
+  })
+  
+  output$farewell <- renderText({
+    suppressMessages(
+      goodbye(input$name, input$language, input$exclamation, input$capitalize)
+    )
+  })
+}
+
+# shinyApp(ui = ui, server = server)
+```
+
+### Performance Considerations
+
+For high-volume applications, you might want to avoid printing to the console:
+
+```{r}
+# Create a silent version of hello() that doesn't print to console
+silent_hello <- function(name = "world", language = "english", exclamation = TRUE, capitalize = FALSE) {
+  # Input validation - simplified for brevity
+  if (!is.character(name) || length(name) != 1) {
+    stop("'name' must be a single character string")
+  }
+  
+  # Capitalize name if requested
+  if (capitalize) {
+    name <- paste0(toupper(substr(name, 1, 1)), substr(name, 2, nchar(name)))
+  }
+  
+  # Select greeting based on language
+  greeting <- switch(
+    language,
+    english = "Hello",
+    spanish = "Hola",
+    french = "Bonjour",
+    portuguese = "Olá", 
+    german = "Hallo",
+    italian = "Ciao",
+    "Hello"
+  )
+  
+  # Construct the greeting
+  result <- paste0(greeting, ", ", name)
+  
+  # Add exclamation mark if requested
+  if (exclamation) {
+    result <- paste0(result, "!")
+  } else {
+    result <- paste0(result, ".")
+  }
+  
+  # Return the greeting (without printing)
+  return(result)
+}
+
+# Use the silent version
+greeting <- silent_hello("R users", "french")
+greeting
+```
+
+### Batch Processing
+
+You can use the greeting functions in batch processing scenarios:
+
+```{r}
+# Create greetings for a list of names
+names <- c("Alice", "Bob", "Charlie", "David")
+languages <- c("english", "spanish", "french", "portuguese")
+
+# Create a dataframe with all combinations
+greetings_df <- expand.grid(name = names, language = languages, stringsAsFactors = FALSE)
+
+# Add greetings
+greetings_df$greeting <- mapply(
+  function(name, language) {
+    suppressMessages(hello(name, language))
+  },
+  greetings_df$name,
+  greetings_df$language
+)
+
+# Display the first few rows
+head(greetings_df)
+```
+
+## Conclusion
+
+These examples demonstrate how the simple greeting functions in `myrpackage` can be extended and integrated into more complex applications. By following R package best practices, even simple functions can be made robust, flexible, and user-friendly.

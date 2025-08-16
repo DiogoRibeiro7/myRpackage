@@ -5,7 +5,7 @@ version <- meta$Version
 
 bibentry(
   bibtype = "Manual",
-  title = "myrpackage: A Minimal R Package",
+  title = "myrpackage: Multilingual Greeting and Farewell Functions",
   author = person(given = "Diogo", family = "Ribeiro",
                   email = "dfr@esmad.ipp.pt",
                   role = c("aut", "cre"),
@@ -17,7 +17,7 @@ bibentry(
   doi = "", # Add DOI when available
   textVersion = paste0(
     "Ribeiro, D. (", year, "). ",
-    "myrpackage: A Minimal R Package. ",
+    "myrpackage: Multilingual Greeting and Farewell Functions. ",
     "R package version ", version, ". ",
     "https://github.com/DiogoRibeiro7/myrpackage"
   )

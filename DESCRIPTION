@@ -1,10 +1,13 @@
 Package: myrpackage
 Type: Package
-Title: A Minimal R Package
-Version: 0.0.0.9000
+Title: Multilingual Greeting and Farewell Functions
+Version: 0.1.0
 Authors@R:
     person(given = "Diogo", family = "Ribeiro", email = "dfr@esmad.ipp.pt", role = c("aut", "cre"), comment = c(ORCID = "0009-0001-2022-7072", affiliation = "ESMAD - Instituto Politécnico do Porto"))
-Description: A short description of what the package does.
+Description: Provides functions for greeting and saying farewell in multiple languages.
+    The package supports English, Spanish, French, Portuguese, German, and Italian.
+    It demonstrates proper R package structure, documentation, and testing practices.
+    Functions include customization options for formatting and punctuation.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
