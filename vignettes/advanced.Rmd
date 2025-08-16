@@ -61,7 +61,7 @@ You can combine the greeting functions with other text to create more personaliz
 ```{r}
 create_welcome_message <- function(name, language = "english") {
   greeting <- suppressMessages(hello(name, language, exclamation = TRUE))
-  
+
   # Add a personalized message
   additional_text <- switch(
     language,
@@ -73,10 +73,10 @@ create_welcome_message <- function(name, language = "english") {
     italian = "Benvenuto nella nostra applicazione.",
     "Welcome to our application."
   )
-  
+
   message <- paste(greeting, additional_text)
   cat(message, "\n")
-  
+
   invisible(message)
 }
 
@@ -128,7 +128,7 @@ library(shiny)
 
 ui <- fluidPage(
   titlePanel("Multilingual Greeter"),
-  
+
   sidebarLayout(
     sidebarPanel(
       textInput("name", "Your Name:", "world"),
@@ -142,7 +142,7 @@ ui <- fluidPage(
       checkboxInput("exclamation", "Add Exclamation Mark", TRUE),
       checkboxInput("capitalize", "Capitalize Name", FALSE)
     ),
-    
+
     mainPanel(
       h3("Greeting:"),
       verbatimTextOutput("greeting"),
@@ -158,7 +158,7 @@ server <- function(input, output) {
       hello(input$name, input$language, input$exclamation, input$capitalize)
     )
   })
-  
+
   output$farewell <- renderText({
     suppressMessages(
       goodbye(input$name, input$language, input$exclamation, input$capitalize)
@@ -180,34 +180,34 @@ silent_hello <- function(name = "world", language = "english", exclamation = TRU
   if (!is.character(name) || length(name) != 1) {
     stop("'name' must be a single character string")
   }
-  
+
   # Capitalize name if requested
   if (capitalize) {
     name <- paste0(toupper(substr(name, 1, 1)), substr(name, 2, nchar(name)))
   }
-  
+
   # Select greeting based on language
   greeting <- switch(
     language,
     english = "Hello",
     spanish = "Hola",
     french = "Bonjour",
-    portuguese = "Olá", 
+    portuguese = "Olá",
     german = "Hallo",
     italian = "Ciao",
     "Hello"
   )
-  
+
   # Construct the greeting
   result <- paste0(greeting, ", ", name)
-  
+
   # Add exclamation mark if requested
   if (exclamation) {
     result <- paste0(result, "!")
   } else {
     result <- paste0(result, ".")
   }
-  
+
   # Return the greeting (without printing)
   return(result)
 }
