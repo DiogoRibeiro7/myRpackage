@@ -48,7 +48,7 @@ reference:
   - title: "Package Information"
     desc: "Documentation about the package itself"
     contents:
-      - myrpackage-package
+      - "myrpackage-package"  # Use quotes to ensure it's treated as a literal string
       - myrpackage-lifecycle
 
 home:
