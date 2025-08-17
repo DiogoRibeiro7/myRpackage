@@ -35,10 +35,82 @@ jobs:
         run: pkgdown::build_site_github_pages(new_process = FALSE, install = FALSE)
         shell: Rscript {0}
 
-      - name: Deploy to GitHub pages 🚀
-        if: github.event_name != 'pull_request'
-        uses: JamesIves/github-pages-deploy-action@v4.4.1
+      - name: Checkout blog repository
+        uses: actions/checkout@v4
         with:
-          clean: false
-          branch: gh-pages
-          folder: docs
+          repository: DiogoRibeiro7/DiogoRibeiro7.github.io
+          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          path: blog-repo
+
+      - name: Copy package docs to blog
+        run: |
+          # Create the packages directory in blog if it doesn't exist
+          mkdir -p blog-repo/packages/myrpackage
+          
+          # Copy the built documentation
+          cp -r docs/* blog-repo/packages/myrpackage/
+          
+          # Update navigation and create index page
+          cd blog-repo
+
+      - name: Create package index page
+        run: |
+          cat > blog-repo/packages/index.md << 'EOF'
+          ---
+          layout: single
+          title: "R Packages"
+          permalink: /packages/
+          author_profile: true
+          header:
+            image: /assets/images/data_science_1.jpg
+            overlay_image: /assets/images/data_science_1.jpg
+            teaser: /assets/images/data_science_1.jpg
+            show_overlay_excerpt: false
+            twitter_image: /assets/images/data_science_1.jpg
+            og_image: /assets/images/data_science_1.jpg
+          seo_type: article
+          ---
+
+          # R Packages
+
+          This section contains documentation for R packages I've developed.
+
+          ## Available Packages
+
+          ### [myrpackage](/packages/myrpackage/)
+          
+          A multilingual greeting and farewell package that demonstrates proper R package structure, documentation, and testing practices. It provides functions for greeting and saying farewell in multiple languages including English, Spanish, French, Portuguese, German, and Italian.
+
+          **Features:**
+          - Multilingual greetings and farewells
+          - Comprehensive documentation and examples
+          - Full test coverage
+          - Proper R package structure
+          - CI/CD pipeline with GitHub Actions
+
+          [View Documentation →](/packages/myrpackage/)
+          EOF
+
+      - name: Update main navigation
+        run: |
+          # Create navigation entry for packages if it doesn't exist
+          if ! grep -q "packages" blog-repo/_data/navigation.yml; then
+            cat >> blog-repo/_data/navigation.yml << 'EOF'
+            
+            - title: "Packages"
+              url: /packages/
+          EOF
+          fi
+
+      - name: Commit and push changes
+        run: |
+          cd blog-repo
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add .
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Update myrpackage documentation"
+            git push
+          fi

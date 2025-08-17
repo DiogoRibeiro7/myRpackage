@@ -1,4 +1,4 @@
-url: https://diogoribeiro7.github.io/myrpackage/
+url: https://diogoribeiro7.github.io/packages/myrpackage/
 
 template:
   bootstrap: 5
@@ -21,7 +21,7 @@ authors:
 navbar:
   structure:
     left: [intro, reference, articles, news, tutorials]
-    right: [search, github]
+    right: [search, github, blog]
   components:
     articles:
       text: Articles
@@ -40,6 +40,9 @@ navbar:
     news:
       text: News
       href: news/index.html
+    blog:
+      text: "← Back to Blog"
+      href: https://diogoribeiro7.github.io/
 
 reference:
   - title: "Main Functions"
@@ -56,7 +59,7 @@ reference:
 
 home:
   sidebar:
-    structure: [links, license, community, citation, authors, dev]
+    structure: [links, license, community, citation, authors, dev, blog_link]
     components:
       citation:
         title: Citation
@@ -66,3 +69,8 @@ home:
         text: >
           If you have questions or issues about the package, please file an issue on
           [GitHub](https://github.com/DiogoRibeiro7/myrpackage/issues).
+      blog_link:
+        title: "Data Science Blog"
+        text: >
+          Check out my [data science blog](https://diogoribeiro7.github.io/) for more content 
+          on statistics, machine learning, and R programming.
