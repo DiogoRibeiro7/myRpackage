@@ -15,6 +15,8 @@ jobs:
       group: pkgdown-${{ github.event_name != 'pull_request' || github.run_id }}
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      BLOG_REPO: DiogoRibeiro7/DiogoRibeiro7.github.io
+      BLOG_DEST: packages/myrpackage
     permissions:
       contents: write
     steps:
@@ -28,79 +30,36 @@ jobs:
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          extra-packages: any::pkgdown, local::.
+          extra-packages: |
+            any::roxygen2
+            any::pkgdown
+            local::.
           needs: website
 
+      - name: Document (generate NAMESPACE & man/)
+        run: roxygen2::roxygenise()
+        shell: Rscript {0}
+
+      # You can use build_site_github_pages(); build_site() is fine since we copy to blog
       - name: Build site
-        run: pkgdown::build_site_github_pages(new_process = FALSE, install = FALSE)
+        run: pkgdown::build_site(preview = FALSE)
         shell: Rscript {0}
 
       - name: Checkout blog repository
         uses: actions/checkout@v4
         with:
-          repository: DiogoRibeiro7/DiogoRibeiro7.github.io
-          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          repository: ${{ env.BLOG_REPO }}
+          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}  # PAT with repo write access to the blog repo
           path: blog-repo
 
-      - name: Copy package docs to blog
+      - name: Copy package docs to blog (includes dotfiles, cleans removed files)
         run: |
-          # Create the packages directory in blog if it doesn't exist
-          mkdir -p blog-repo/packages/myrpackage
-          
-          # Copy the built documentation
-          cp -r docs/* blog-repo/packages/myrpackage/
-          
-          # Update navigation and create index page
-          cd blog-repo
+          mkdir -p "blog-repo/${BLOG_DEST}"
+          rsync -av --delete docs/ "blog-repo/${BLOG_DEST}/"
+          # short listing for debugging
+          ls -la "blog-repo/${BLOG_DEST}" | sed -n '1,80p'
 
-      - name: Create package index page
-        run: |
-          cat > blog-repo/packages/index.md << 'EOF'
-          ---
-          layout: single
-          title: "R Packages"
-          permalink: /packages/
-          author_profile: true
-          header:
-            image: /assets/images/data_science_1.jpg
-            overlay_image: /assets/images/data_science_1.jpg
-            teaser: /assets/images/data_science_1.jpg
-            show_overlay_excerpt: false
-            twitter_image: /assets/images/data_science_1.jpg
-            og_image: /assets/images/data_science_1.jpg
-          seo_type: article
-          ---
-
-          # R Packages
-
-          This section contains documentation for R packages I've developed.
-
-          ## Available Packages
-
-          ### [myrpackage](/packages/myrpackage/)
-          
-          A multilingual greeting and farewell package that demonstrates proper R package structure, documentation, and testing practices. It provides functions for greeting and saying farewell in multiple languages including English, Spanish, French, Portuguese, German, and Italian.
-
-          **Features:**
-          - Multilingual greetings and farewells
-          - Comprehensive documentation and examples
-          - Full test coverage
-          - Proper R package structure
-          - CI/CD pipeline with GitHub Actions
-
-          [View Documentation →](/packages/myrpackage/)
-          EOF
-
-      - name: Update main navigation
-        run: |
-          # Create navigation entry for packages if it doesn't exist
-          if ! grep -q "packages" blog-repo/_data/navigation.yml; then
-            cat >> blog-repo/_data/navigation.yml << 'EOF'
-            
-            - title: "Packages"
-              url: /packages/
-          EOF
-          fi
+      # No index/nav editing here since your blog already has the page and navigation.
 
       - name: Commit and push changes
         run: |
@@ -111,6 +70,7 @@ jobs:
           if git diff --staged --quiet; then
             echo "No changes to commit"
           else
-            git commit -m "Update myrpackage documentation"
+            git commit -m "Update unconfoundedr documentation"
             git push
           fi
+
