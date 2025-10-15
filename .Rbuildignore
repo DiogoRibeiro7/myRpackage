@@ -1,3 +1,5 @@
+^renv$
+^renv\.lock$
 ^README\.md$
 ^\.gitignore$
 ^\.Rproj\.user$
@@ -26,3 +28,6 @@
 ^CODE_OF_CONDUCT\.md$
 ^CHANGELOG\.md$
 ^\.Renviron$
+^renv($|/)
+^renv\.lock$
+^\.Rprofile$
