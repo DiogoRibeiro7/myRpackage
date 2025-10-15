@@ -12,18 +12,6 @@ updates:
       - "dependencies"
       - "github-actions"
 
-  # Docker base images (if you use rocker/* or other images)
-  - package-ecosystem: "docker"
-    directory: "/"            # adjust if your Dockerfile lives elsewhere
-    schedule:
-      interval: "weekly"
-    open-pull-requests-limit: 10
-    reviewers:
-      - "diogoribeiro7"
-    labels:
-      - "dependencies"
-      - "docker"
-
   # Git submodules (if you vendor templates/extensions)
   - package-ecosystem: "gitsubmodule"
     directory: "/"
