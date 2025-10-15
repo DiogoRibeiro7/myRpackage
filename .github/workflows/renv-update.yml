@@ -1,18 +1,17 @@
-# .github/workflows/renv-update.yml
-name: Update R dependencies (renv)
+# .github/workflows/renv-bootstrap-or-restore.yml
+name: Bootstrap or Restore renv
 
 on:
-  schedule:
-    - cron: "0 6 * * 1"   # Mondays at 06:00 UTC
   workflow_dispatch:
+  schedule:
+    - cron: "0 6 * * 1"   # Mondays 06:00 UTC
 
 jobs:
-  renv-update:
+  renv:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
+        with: { fetch-depth: 0 }
 
       - uses: r-lib/actions/setup-r@v2
         with:
@@ -21,19 +20,33 @@ jobs:
       - name: Install renv
         run: Rscript -e 'install.packages("renv", repos="https://cloud.r-project.org")'
 
-      - name: Restore library
-        run: Rscript -e 'renv::restore(prompt = FALSE)'
+      - name: Bootstrap or restore
+        id: renv
+        run: |
+          Rscript - <<'RSCRIPT'
+          if (!file.exists("renv.lock")) {
+            message("No renv.lock found — bootstrapping…")
+            renv::init(bare = TRUE)
+            # Optionally install dev deps here, e.g.:
+            # renv::install(c("devtools","roxygen2","testthat"))
+            renv::snapshot(prompt = FALSE)
+            cat("BOOTSTRAPPED=1\n", file = Sys.getenv("GITHUB_OUTPUT"), append = TRUE)
+          } else {
+            message("renv.lock found — restoring…")
+            renv::restore(prompt = FALSE)
+            cat("BOOTSTRAPPED=0\n", file = Sys.getenv("GITHUB_OUTPUT"), append = TRUE)
+          }
+          RSCRIPT
 
-      - name: Update lockfile
-        run: Rscript -e 'renv::update(); renv::snapshot(prompt = FALSE, force = TRUE)'
-
-      - name: Create PR if changed
+      - name: Create PR with initial lockfile
+        if: steps.renv.outputs.BOOTSTRAPPED == '1'
         uses: peter-evans/create-pull-request@v6
         with:
-          commit-message: "chore(renv): update R dependencies and lockfile"
-          title: "chore(renv): update R dependencies"
-          body: "Automated weekly update of R packages via renv."
-          branch: "chore/renv-update"
+          commit-message: "chore(renv): initialize renv and add lockfile"
+          title: "chore(renv): bootstrap renv"
+          body: "Initial `renv` setup: adds `.Rprofile`, `renv/activate.R`, and `renv.lock`."
+          branch: "chore/renv-bootstrap"
           labels: dependencies,R
           reviewers: diogoribeiro7
+
           
