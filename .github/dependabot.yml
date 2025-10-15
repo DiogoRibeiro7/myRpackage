@@ -1,0 +1,38 @@
+version: 2
+updates:
+  # GitHub Actions (recommended for any repo)
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+    open-pull-requests-limit: 10
+    reviewers:
+      - "diogoribeiro7"
+    labels:
+      - "dependencies"
+      - "github-actions"
+
+  # Docker base images (if you use rocker/* or other images)
+  - package-ecosystem: "docker"
+    directory: "/"            # adjust if your Dockerfile lives elsewhere
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 10
+    reviewers:
+      - "diogoribeiro7"
+    labels:
+      - "dependencies"
+      - "docker"
+
+  # Git submodules (if you vendor templates/extensions)
+  - package-ecosystem: "gitsubmodule"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 10
+    reviewers:
+      - "diogoribeiro7"
+    labels:
+      - "dependencies"
+      - "submodule"
+      
