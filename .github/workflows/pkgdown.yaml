@@ -20,7 +20,7 @@ jobs:
     permissions:
       contents: write
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - uses: r-lib/actions/setup-pandoc@v2
 
@@ -46,7 +46,7 @@ jobs:
         shell: Rscript {0}
 
       - name: Checkout blog repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           repository: ${{ env.BLOG_REPO }}
           token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}  # PAT with repo write access to the blog repo
